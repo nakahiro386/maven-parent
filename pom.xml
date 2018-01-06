@@ -20,6 +20,10 @@
     <tag>HEAD</tag>
   </scm>
   <distributionManagement>
+    <snapshotRepository>
+      <id>local-snapshot-repo</id>
+      <url>file://${project.build.directory}/repo</url>
+    </snapshotRepository>
     <repository>
       <id>local-repo</id>
       <url>file://${project.basedir}/docs/repo</url>
