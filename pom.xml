@@ -154,7 +154,6 @@
           <configuration>
             <tagNameFormat>v@{project.version}</tagNameFormat>
             <preparationGoals>clean verify install deploy site-deploy scm:add scm:checkin</preparationGoals>
-            <arguments>-f pom.xml.tag</arguments>
           </configuration>
         </plugin>
 
