@@ -142,7 +142,6 @@
           <artifactId>maven-scm-plugin</artifactId>
           <version>1.9.5</version>
           <configuration>
-            <basedir>./docs/</basedir>
             <message>[maven-scm-plugin] recreate site report, maven-repo</message>
             <pushChanges>false</pushChanges>
           </configuration>
