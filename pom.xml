@@ -139,11 +139,21 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-plugin</artifactId>
+          <version>1.9.5</version>
+          <configuration>
+            <basedir>./docs/</basedir>
+            <message>[maven-scm-plugin] recreate site report, maven-repo</message>
+            <pushChanges>false</pushChanges>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
           <version>2.5.3</version>
           <configuration>
             <tagNameFormat>v@{project.version}</tagNameFormat>
-            <preparationGoals>clean verify install deploy site-deploy</preparationGoals>
+            <preparationGoals>clean verify install deploy site-deploy scm:add scm:checkin</preparationGoals>
             <arguments>-f pom.xml.tag</arguments>
           </configuration>
         </plugin>
