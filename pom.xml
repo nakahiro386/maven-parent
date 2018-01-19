@@ -15,7 +15,7 @@
   <packaging>pom</packaging>
   <description>Apache Maven parent pom</description>
 
-  <url>https://nakahiro386.github.io/maven-parent/index.html</url>
+  <url>https://nakahiro386.github.io/maven-parent</url>
   <organization>
     <name>nakahiro386</name>
     <url>https://nakahiro386.github.io/</url>
