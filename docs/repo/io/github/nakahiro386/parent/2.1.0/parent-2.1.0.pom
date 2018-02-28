@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-dependencies</artifactId>
+    <version>1.5.9.RELEASE</version>
+    <relativePath />
+  </parent>
+
+  <groupId>io.github.nakahiro386</groupId>
+  <artifactId>parent</artifactId>
+  <version>2.1.0</version>
+  <packaging>pom</packaging>
+  <description>Apache Maven parent pom</description>
+
+  <url>https://nakahiro386.github.io/maven-parent</url>
+  <organization>
+    <name>nakahiro386</name>
+    <url>https://nakahiro386.github.io/</url>
+  </organization>
+  <scm>
+    <url>https://github.com/nakahiro386/maven-parent</url>
+    <connection>scm:git:https://github.com/nakahiro386/maven-parent.git</connection>
+    <developerConnection>scm:git:git@github.com:nakahiro386/maven-parent.git</developerConnection>
+    <tag>v2.1.0</tag>
+  </scm>
+  <distributionManagement>
+    <snapshotRepository>
+      <id>local-snapshot-repo</id>
+      <url>file://${project.build.directory}/repo</url>
+    </snapshotRepository>
+    <repository>
+      <id>local-repo</id>
+      <url>file://${project.basedir}/docs/repo</url>
+    </repository>
+    <site>
+      <id>local-pages</id>
+      <url>file://${project.basedir}/docs</url>
+    </site>
+  </distributionManagement>
+
+  <properties>
+    <maven>3.5.2</maven>
+    <java.version>1.8</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    <base.encoding>UTF-8</base.encoding>
+    <project.build.sourceEncoding>${base.encoding}</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>${base.encoding}</project.reporting.outputEncoding>
+    <maven.compiler.showWarnings>true</maven.compiler.showWarnings>
+    <locales>ja</locales>
+
+    <!-- Dependency versions -->
+    <spring-boot-version>1.5.9.RELEASE</spring-boot-version>
+    <mybatis-spring-boot-starter.version>1.3.1</mybatis-spring-boot-starter.version>
+    <mybatis-generator-maven-plugin.version>1.3.6</mybatis-generator-maven-plugin.version>
+    <commons-lang3.version>3.7</commons-lang3.version>
+    <dbunit.version>2.5.4</dbunit.version>
+    <spring-test-dbunit.version>1.3.0</spring-test-dbunit.version>
+    <system-rules.version>1.17.1</system-rules.version>
+
+    <!-- Override dependency versions -->
+    <!-- tools.jarをsystemPathで直接指定していてsite reportがエラーになるのでダウングレード -->
+    <crashub.version>1.3.0-beta18</crashub.version>
+
+    <!-- Plugin versions -->
+    <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
+    <maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
+    <maven-jxr-plugin.version>2.5</maven-jxr-plugin.version>
+    <javancss-maven-plugin.version>2.1</javancss-maven-plugin.version>
+    <maven-scm-plugin.version>1.9.5</maven-scm-plugin.version>
+    <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+
+    <!-- Override plugin versions -->
+    <maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
+    <maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
+    <maven-shade-plugin.version>3.1.0</maven-shade-plugin.version>
+    <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+    <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+    <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
+    <maven-site-plugin.version>3.7</maven-site-plugin.version>
+    <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
+
+  </properties>
+
+  <repositories>
+    <!-- gemfireがcentralで公開されておらず、site reportでエラーとなる。 -->
+    <repository>
+      <id>spring-libs-release</id>
+      <name>Spring Releases</name>
+      <url>https://repo.spring.io/libs-release</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>properties-maven-plugin</artifactId>
+          <version>${properties-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-project-info-reports-plugin</artifactId>
+          <version>${maven-project-info-reports-plugin.version}</version>
+          <configuration>
+            <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+            <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+            <skipEmptyReport>true</skipEmptyReport>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jxr-plugin</artifactId>
+          <version>${maven-jxr-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>javancss-maven-plugin</artifactId>
+          <version>${javancss-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <configuration>
+            <additionalJOptions>
+              <additionalJOption>-J-Dfile.encoding=${project.build.sourceEncoding}</additionalJOption>
+            </additionalJOptions>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-scm-plugin</artifactId>
+          <version>${maven-scm-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${maven-release-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.mybatis.generator</groupId>
+          <artifactId>mybatis-generator-maven-plugin</artifactId>
+          <version>${mybatis-generator-maven-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-versions</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>${maven}</version>
+                </requireMavenVersion>
+                <requireJavaVersion>
+                  <version>${java.version}</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-plugin</artifactId>
+        <inherited>false</inherited>
+        <configuration>
+          <message>[maven-scm-plugin] recreate site report, maven-repo</message>
+          <pushChanges>false</pushChanges>
+          <includes>docs/*,docs/**/*</includes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <inherited>false</inherited>
+        <configuration>
+          <tagNameFormat>v@{project.version}</tagNameFormat>
+          <preparationGoals>clean verify install deploy site-deploy scm:add scm:checkin</preparationGoals>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter</artifactId>
+        <version>${mybatis-spring-boot-starter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis.spring.boot</groupId>
+        <artifactId>mybatis-spring-boot-starter-test</artifactId>
+        <version>${mybatis-spring-boot-starter.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis.generator</groupId>
+        <artifactId>mybatis-generator-maven-plugin</artifactId>
+        <version>${mybatis-generator-maven-plugin.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${commons-lang3.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.dbunit</groupId>
+        <artifactId>dbunit</artifactId>
+        <version>${dbunit.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.springtestdbunit</groupId>
+        <artifactId>spring-test-dbunit</artifactId>
+        <version>${spring-test-dbunit.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.github.stefanbirkner</groupId>
+        <artifactId>system-rules</artifactId>
+        <version>${system-rules.version}</version>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <id>normal</id>
+            <reports>
+              <report>index</report>
+              <report>summary</report>
+              <report>dependency-info</report>
+              <report>dependencies</report>
+              <report>dependency-convergence</report>
+              <report>plugins</report>
+            </reports>
+          </reportSet>
+          <reportSet>
+            <id>management</id>
+            <inherited>false</inherited>
+            <reports>
+              <report>modules</report>
+              <report>dependency-management</report>
+              <report>plugin-management</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>jxr</report>
+              <report>test-jxr</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>javadoc</report>
+              <report>test-javadoc</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>javancss-maven-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>analyze-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+
+</project>
